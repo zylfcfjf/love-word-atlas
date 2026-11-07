@@ -1,0 +1,10 @@
+{
+  "name": "爱上记单词",
+  "short_name": "爱上记单词",
+  "description": "一词一画，点亮雅思",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#F3ECDF",
+  "theme_color": "#F3ECDF",
+  "icons": [{ "src": "brand-logo.png", "sizes": "1254x1254", "type": "image/png", "purpose": "any" }]
+}
