@@ -43,6 +43,18 @@ self.addEventListener("fetch", (event) => {
     event.respondWith(fetch(req, { cache: "no-store" }));
     return;
   }
+  if (!localPreview && url.pathname === `${atlasPath}index.json`) {
+    const refresh = fetch(req).then(async (res) => {
+      if (res.ok) {
+        const cache = await caches.open(SHELL);
+        await cache.put(req, res.clone()).catch(() => {});
+      }
+      return res;
+    });
+    event.respondWith(caches.match(req).then((hit) => hit || refresh));
+    event.waitUntil(refresh.catch(() => {}));
+    return;
+  }
   const isShell = req.mode === "navigate" || url.pathname.endsWith("/index.json");
   if (isShell) {
     event.respondWith(
